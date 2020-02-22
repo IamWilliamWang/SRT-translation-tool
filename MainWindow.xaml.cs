@@ -109,7 +109,7 @@ namespace 字幕翻译助手
             for (int lineIndex = 0; lineIndex < originalLines.Count(); lineIndex++)
             {
                 var lineContent = originalLines[lineIndex];
-                if (lineContent.Contains(" --> ") || lineContent == "" || Regex.IsMatch(lineContent, @"\d+")) 
+                if (lineContent.Contains(" --> ") || lineContent == "" || Regex.IsMatch(lineContent, @"^\d+$")) 
                     continue;
                 rightTexts.AppendLine(originalLines[lineIndex]);
             }
@@ -143,7 +143,7 @@ namespace 字幕翻译助手
             for (; leftLineIndex < returnedLines.Count(); leftLineIndex++)
             {
                 string leftLine = returnedLines[leftLineIndex];
-                if (leftLine == "" || leftLine.Contains(" --> ") || Regex.IsMatch(leftLine, @"\d+"))
+                if (leftLine.Contains(" --> ") || leftLine == "" || Regex.IsMatch(leftLine, @"^\d+$"))
                     continue;
                 try
                 {
