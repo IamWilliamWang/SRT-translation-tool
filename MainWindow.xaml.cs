@@ -19,7 +19,9 @@ namespace 字幕翻译助手
         /// 左侧文字的显示和修改。用来代替textBox左.Text（当用户主动修改textBox左.Text时请重新调用该Set）。
         /// </summary>
         private String OriginalTexts { get { return originalTexts; } set { originalTexts = value; this.textBox左.Text = value; } }
-        private String[] OriginalLines { get { return Regex.Split(OriginalTexts, @"\r\n"); }
+        private String[] OriginalLines
+        {
+            get { return Regex.Split(OriginalTexts, @"\r\n"); }
             set
             {
                 StringBuilder @string = new StringBuilder();
@@ -35,7 +37,9 @@ namespace 字幕翻译助手
         /// 右侧文字的显示和修改。用来代替textBox右.Text（当用户主动修改textBox右.Text时请重新调用该Set）
         /// </summary>
         private String TranslatedTexts { get { return translatedTexts; } set { translatedTexts = value; this.textBox右.Text = value; } }
-        private String[] TranslatedLines { get { return Regex.Split(TranslatedTexts, @"\r\n"); }
+        private String[] TranslatedLines
+        {
+            get { return Regex.Split(TranslatedTexts, @"\r\n"); }
             set
             {
                 StringBuilder @string = new StringBuilder();
@@ -50,6 +54,14 @@ namespace 字幕翻译助手
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void TextBox右_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (this.textBox右.SelectionLength == 0)
+                this.Title = "字幕翻译助手";
+            else
+                this.Title = "字幕翻译助手 (" + this.textBox右.SelectionLength + "/" + this.textBox右.Text.Length + ")";
         }
 
         private string ReadAllText(string filename)
@@ -88,7 +100,7 @@ namespace 字幕翻译助手
                 openFileDialog.InitialDirectory = 选择的文件.DirectoryName;
                 openFileDialog.FileName = 选择的文件.Name;
             }
-            if (openFileDialog.ShowDialog() == false) 
+            if (openFileDialog.ShowDialog() == false)
                 return;
             this.textBox文件名.Text = openFileDialog.FileName;
             选择的文件 = new FileInfo(openFileDialog.FileName);
@@ -109,7 +121,7 @@ namespace 字幕翻译助手
             for (int lineIndex = 0; lineIndex < originalLines.Count(); lineIndex++)
             {
                 var lineContent = originalLines[lineIndex];
-                if (lineContent.Contains(" --> ") || lineContent == "" || Regex.IsMatch(lineContent, @"^\d+$")) 
+                if (lineContent.Contains(" --> ") || lineContent == "" || Regex.IsMatch(lineContent, @"^\d+$"))
                     continue;
                 rightTexts.AppendLine(originalLines[lineIndex]);
             }
@@ -155,12 +167,12 @@ namespace 字幕翻译助手
                     return;
                 }
             }
-            if (leftLineIndex < OriginalLines.Count() || rightLineIndex < translatedLines.Length) 
+            if (leftLineIndex < OriginalLines.Count() || rightLineIndex < translatedLines.Length)
                 MessageBox.Show("检测到右方行数与左边对应行数不一致，请重新检查译文的正确性！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
             else
                 OriginalLines = returnedLines;
         }
-        
+
         private void Button存储左边_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();

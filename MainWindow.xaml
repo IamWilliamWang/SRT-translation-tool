@@ -33,7 +33,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBox Name="textBox左" FontFamily="宋体" Margin="12,13,10,10" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
-            <TextBox Name="textBox右" FontFamily="宋体" Margin="10,13,10,11" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="1" AcceptsReturn="True"/>
+            <TextBox Name="textBox右" FontFamily="宋体" Margin="10,13,10,11" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="1" AcceptsReturn="True" PreviewMouseLeftButtonUp="TextBox右_PreviewMouseLeftButtonUp"/>
         </Grid>
     </Grid>
 </Window>
